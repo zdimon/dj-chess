@@ -20,11 +20,27 @@
         width: {% widthratio board|length 1 100|add:10 %}px; 
         height: {% widthratio board|length 1 100 %}px; 
     ">
-
+    {% for x in board  %}
+        <div class="pos-x">
+            {{ x.0.pos_y }}
+        </div>
+    {% endfor %}
+    
         {% for x in board  %}
             
             {% for y in x  %}
-                <div class="chess-cel {{ y.color }}"></div>
+                {% if forloop.counter == 1 %}
+                    <div class="pos-y">
+                        {{ y.pos_y }}
+                    </div>
+                {% endif %}
+               
+                <div class="chess-cel {{ y.color }}">
+                    {% if y.figure %}
+                    <img class="figure-img" src="/static/images/{{ y.figure }}.png" width="100%" alt="">
+                    {% endif %}
+                </div>
+                
             {% endfor %}
 
         {% endfor %}

@@ -7,6 +7,7 @@
     width: 100px;
     height: 100px;
     border: 1px solid silver;
+    
 }
 
 .wrapper {
@@ -21,4 +22,16 @@
 
 .bg-white {
     background-color: rgb(247, 190, 190);
+}
+
+.figure-img {
+    
+}
+.pos-y {
+    width: 40px;
+    height: 10px;
+}   
+
+.pos-x {
+    width: 105px;
 }
