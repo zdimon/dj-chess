@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Chess</title>
+        <link rel="stylesheet" href="/static/chess.css" />
+    </head>
+<body>
+
+<h1>Desck settings</h1>
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        x:<input name="x" type="text" value="8">
+        y:<input name="y" type="text" value="8">
+        <button type="submit">Submit</button>
+    </form>
+
+
+    <div class="wrapper" style="
+        width: {% widthratio board|length 1 100|add:10 %}px; 
+        height: {% widthratio board|length 1 100 %}px; 
+    ">
+
+        {% for x in board  %}
+            
+            {% for y in x  %}
+                <div class="chess-cel {{ y.color }}"></div>
+            {% endfor %}
+
+        {% endfor %}
+
+    </div>
+
+</body>
+</html>
