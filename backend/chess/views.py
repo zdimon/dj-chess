@@ -3,10 +3,6 @@ from django.conf import settings
 import os
 import json
 
-
-
-
-
 def set_board(board):
     cnt = 0
     for line in board:
@@ -93,7 +89,13 @@ def move_figure(from_x=0,from_y=0,to_x=1,to_y=1):
     write_db(board)
     return board
 
+from django.http import HttpResponse
+from django.template.loader import render_to_string
+
 
 def index(request): 
     board = create_board_db()
-    return render(request, 'index.html', {"board": board})
+    tpl = render_to_string('index.html', {"board": board})
+    tpl = tpl.replace('src="/static','src="/static/build/static')
+    tpl = tpl.replace('href="/static','href="/static/build/static')
+    return HttpResponse(tpl)
