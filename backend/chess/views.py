@@ -98,4 +98,7 @@ def index(request):
     tpl = render_to_string('index.html', {"board": board})
     tpl = tpl.replace('src="/static','src="/static/build/static')
     tpl = tpl.replace('href="/static','href="/static/build/static')
+    tpl = tpl.replace('href="/manifest.json"','href="/static/build/manifest.json"')
+    
+    
     return HttpResponse(tpl)
