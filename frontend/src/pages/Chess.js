@@ -14,7 +14,7 @@ function Chess() {
   return (
     <div className="Chess" >
        <Board id="board" board={board} />  
-    </div>
+    </div> 
   );
 }
 

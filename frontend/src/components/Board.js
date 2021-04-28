@@ -9,8 +9,8 @@ function Board(props) {
     <div className="Board" >
        {props.board.map((el,index) => el.map((e,index) => <Cell cell={e} />)
        )}
-    </div>
+    </div>  
   );
 }
 
-export default Board;
+export default Board;   

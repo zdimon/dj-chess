@@ -4,8 +4,9 @@ import './Cell.css';
 function Cell(props) {
   return (
     <div className={`cell ${props.cell.color}`} >
-      {props.cell.figure}
-    </div>
+      { props.cell.figure ? <img class="chess-figure" src={`/static/images/${props.cell.figure}.svg`} />: ''}
+          
+    </div>  
   );
 }
 
