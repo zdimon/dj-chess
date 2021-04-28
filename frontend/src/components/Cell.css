@@ -1,0 +1,12 @@
+.cell {
+    width: 100px;
+    height: 100px;
+}
+
+.bg-white {
+    background-color: aliceblue;
+}
+
+.bg-black {
+    background-color: rgb(159, 181, 201);
+}

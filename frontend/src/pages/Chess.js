@@ -3,7 +3,7 @@ import Request from '../Request';
 import Board from '../components/Board';
 
 function Chess() {
-  const [board, setBoard] = useState();
+  const [board, setBoard] = useState([[]]);
   useEffect(() => { 
     var r = new Request();
     r.get('/static/db.json')
@@ -13,8 +13,7 @@ function Chess() {
   }, [])
   return (
     <div className="Chess" >
-       <h1>Chess</h1>
-       <Board />  
+       <Board id="board" board={board} />  
     </div>
   );
 }

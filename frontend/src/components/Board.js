@@ -1,11 +1,14 @@
+import './Board.css';
 import React from 'react';
+import Cell from './Cell';
 
-function Board() {
- 
+
+function Board(props) {
+  console.log(props);
   return (
     <div className="Board" >
-       <h1>Board</h1>
-      
+       {props.board.map((el,index) => el.map((e,index) => <Cell cell={e} />)
+       )}
     </div>
   );
 }
