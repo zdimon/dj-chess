@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -22,33 +22,68 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Navbar() {
+function Navbar(props) {
     const classes = useStyles();
+    const [username, setUsername] = useState(false);
+    useEffect(() => { 
+      if(localStorage.getItem('username')) {
+        setUsername(localStorage.getItem('username'));
+      } 
+    }, [])
+
+    var logout = () => {
+      console.log('Logout');
+      localStorage.removeItem('token');
+      localStorage.removeItem('username');
+      props.onLogout();
+    }
     return (
         <AppBar position="static">
         <Toolbar>
             <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
             <MenuIcon />
             </IconButton>
-            <Typography variant="h6" className={classes.title}>
-            Chess game
-            </Typography>
+            {
+               props.isAuth? 
+               <Typography variant="h6" className={classes.title}>
+                Welcome {username}
+               </Typography>
+               :
+               <Typography variant="h6" className={classes.title}>
+                Please Sign in.
+               </Typography>
+            }
+
             
-            <Button 
+            
+                
+                { props.isAuth? 
+                <>
+                <Button 
                 variant="contained" 
                 color="primary" 
                 component={Link} 
                 to={'/chess'} >
                     Chess
                 </Button>
-                
+                <Button 
+                variant="contained" 
+                color="secondary" 
+                onClick={logout} >
+                    Logout
+                </Button>
+                </>
+                :
                 <Button 
                 variant="contained" 
                 color="secondary" 
                 component={Link} 
                 to={'/login'} >
                     Login
-                </Button>
+                </Button>                
+                
+                }
+                
 
 
         </Toolbar>

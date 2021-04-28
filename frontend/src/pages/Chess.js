@@ -6,7 +6,7 @@ function Chess() {
   const [board, setBoard] = useState([[]]);
   useEffect(() => { 
     var r = new Request();
-    r.get('/static/db.json')
+    r.get('chess/get/board')
     .then((payload) => {
        setBoard(payload);
     });
