@@ -1,0 +1,4 @@
+git add .
+git commit -m 'auto'
+git push
+ssh zdimon@pi.wezom.webmonstr.com -t 'cd dj-chess; git pull'
