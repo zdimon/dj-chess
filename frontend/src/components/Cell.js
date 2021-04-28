@@ -4,7 +4,7 @@ import './Cell.css';
 function Cell(props) {
   return (
     <div className={`cell ${props.cell.color}`} >
-      {props.cell.figure}111
+      {props.cell.figure}
     </div>
   );
 }
