@@ -4,7 +4,7 @@ from chess.tasks import update_users_online
 class Command(BaseCommand):
     
     def handle(self, *args, **options):
-        print('Testing_online')
+        print('Loading figures')
         update_users_online.delay()
 
         

@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from .tasks import update_users_online
+import uuid
+from django.utils.html import mark_safe
 
 class UserProfile(User):
     publicname = models.CharField(default='', max_length=250)
@@ -50,3 +52,35 @@ class SocialAuth(models.Model):
     email =  models.CharField(max_length=50)
     secret =  models.CharField(max_length=250)
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE) 
+
+
+class Figure(models.Model):
+
+    COLOR = (
+        ("black", "Black"),
+        ("white", "White")
+    )
+    name = models.CharField(max_length=90)
+    image = models.ImageField(upload_to='figures')
+    color = models.CharField(max_length=90, choices=COLOR,
+                  default="white")
+
+
+    @property
+    def image_tag(self):
+        try:
+            return mark_safe(f'<img width="100" src="{self.image.url}" />')
+        except:
+            return 'No image'
+
+
+class User2Figure(models.Model):
+    user = models.ForeignKey(UserProfile,on_delete=models.CASCADE)
+    figure = models.ForeignKey(Figure,on_delete=models.CASCADE)
+
+class Board(models.Model):
+    uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    owner = models.ForeignKey(UserProfile,on_delete=models.SET_NULL, null=True, blank=True)
+
+class Cell(models.Model):
+    board = models.ForeignKey(Board,on_delete=models.CASCADE)
