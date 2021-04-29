@@ -7,7 +7,7 @@ function Login(props) {
   console.log('Login comp');
 
   const responseGoogle = (response) => {
-    // console.log(response);
+    console.log(response);
     var data = {
       email: response.profileObj.email,
       name: response.profileObj.givenName,
@@ -20,6 +20,7 @@ function Login(props) {
        console.log(payload);
        localStorage.setItem('token',payload.token);
        localStorage.setItem('username',payload.user.publicname);
+       localStorage.setItem('login',payload.user.username);
        props.onLogin();
     });
   }

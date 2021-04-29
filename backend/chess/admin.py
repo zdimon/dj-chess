@@ -8,4 +8,4 @@ class SocialAuthAdmin(admin.ModelAdmin):
 
 @admin.register(UserProfile)
 class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ['id', 'publicname']
+    list_display = ['id', 'publicname', 'sids', 'is_online']

@@ -16,8 +16,21 @@ function Chess() {
     var socket = io(`${config.socketURL}`)
     socket.on('messages', (message) => {
       console.log(message);
-    }
-    )
+    });
+
+    socket.on('connect', () => {
+        socket.emit(
+          'login',
+        {
+          login: localStorage.getItem('login')
+        });
+    });
+
+    socket.on('update_online_user', (payload) => {
+        console.log(payload);
+    });
+
+
   }, [])
   return (
     <div className="Chess" >

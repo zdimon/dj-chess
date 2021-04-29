@@ -10,5 +10,6 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         model = UserProfile
         fields = [  'id', 
                     'publicname', 
+                    'username'
                     ]
 

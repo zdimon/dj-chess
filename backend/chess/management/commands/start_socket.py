@@ -2,21 +2,41 @@ from django.core.management.base import BaseCommand, CommandError
 import threading
 import socketio
 import eventlet
+from chess.models import UserProfile
 eventlet.monkey_patch()
 mgr = socketio.RedisManager('redis://localhost:6379/0')
 sio = socketio.Server(cors_allowed_origins='*',async_mode='eventlet',client_manager=mgr)
-
 app = socketio.WSGIApp(sio)
+
+def add_user_sid(sid,data):
+    user = UserProfile.objects.get(username=data['login'])
+    user.add_sid(sid)
+
+def remove_user_sid(sid):
+    UserProfile.remove_sid(sid)
+
+@sio.event
+def login(sid, data):
+    print('Adding sid %s' % sid)
+    thread = threading.Thread(target=add_user_sid, args=(sid,data))
+    thread.start()
+
 
 @sio.event
 def connect(sid, environ):
     print('connect ', sid)
 
+@sio.event
+def disconnect(sid):
+    print('disconnect ', sid)
+    thread = threading.Thread(target=remove_user_sid, args=(sid,))
+    thread.start()
+
 
 @sio.event
 def disconnect(sid):
     print('disconnect ', sid)
-    thread = threading.Thread(target=remove_user_task, args=(sid,))
+    thread = threading.Thread(target=remove_user_sid, args=(sid,))
     thread.start()
 
 class Command(BaseCommand):

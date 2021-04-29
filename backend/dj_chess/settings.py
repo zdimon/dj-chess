@@ -135,3 +135,5 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL='/v1/chess/login/'
+
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
