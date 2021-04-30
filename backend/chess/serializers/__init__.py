@@ -5,3 +5,4 @@ from .common_serializer import *
 from .board_serializer import *
 from .cell_serializer import *
 from .figure_serializer import *
+from .email_serializer import *
