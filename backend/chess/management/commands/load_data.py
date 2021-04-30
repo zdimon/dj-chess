@@ -3,6 +3,7 @@ from chess.models import Figure
 from django.core.files import File
 from django.conf import settings
 import os
+from chess.models import UserProfile
 
 
 FIGURES = [
@@ -36,4 +37,15 @@ class Command(BaseCommand):
             with open(path, 'rb') as doc_file:
                 f.image.save(f'{fn}-black.svg', File(doc_file), save=True)
 
-        
+        print('Loading users')
+        UserProfile.objects.all().delete()
+        for cnt in range(1,5):
+            name = f't{cnt}'
+            u = UserProfile()
+            u.username = name
+            u.set_password(name)
+            u.publicname = name
+            u.is_active = True
+            u.is_superuser = True
+            u.is_staff = True
+            u.save()

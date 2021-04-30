@@ -3,7 +3,7 @@ import './Cell.css';
 
 function Cell(props) {
   return (
-    <div className={`cell ${props.cell.color}`} >
+    <div className={`cell bg-${props.cell.color}`} >
       { props.cell.figure ? <img class="chess-figure" src={`/static/images/${props.cell.figure}.svg`} />: ''}
           
     </div>  

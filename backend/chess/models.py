@@ -53,17 +53,19 @@ class SocialAuth(models.Model):
     secret =  models.CharField(max_length=250)
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE) 
 
+COLOR = (
+    ("black", "Black"),
+    ("white", "White")
+)
 
 class Figure(models.Model):
-
-    COLOR = (
-        ("black", "Black"),
-        ("white", "White")
-    )
     name = models.CharField(max_length=90)
     image = models.ImageField(upload_to='figures')
     color = models.CharField(max_length=90, choices=COLOR,
                   default="white")
+
+    def __str__(self):
+        return f'{self.name}({self.color})'
 
 
     @property
@@ -74,13 +76,20 @@ class Figure(models.Model):
             return 'No image'
 
 
-class User2Figure(models.Model):
-    user = models.ForeignKey(UserProfile,on_delete=models.CASCADE)
-    figure = models.ForeignKey(Figure,on_delete=models.CASCADE)
+
 
 class Board(models.Model):
     uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    owner = models.ForeignKey(UserProfile,on_delete=models.SET_NULL, null=True, blank=True)
+    owner = models.ForeignKey(UserProfile,on_delete=models.SET_NULL, null=True, blank=True, related_name='owner')
+    agressor = models.ForeignKey(UserProfile,on_delete=models.SET_NULL, null=True, blank=True, related_name='agressor')
+
+class User2Figure(models.Model):
+    user = models.ForeignKey(UserProfile,on_delete=models.CASCADE)
+    figure = models.ForeignKey(Figure,on_delete=models.CASCADE)
+    board = models.ForeignKey(Board,on_delete=models.CASCADE)
 
 class Cell(models.Model):
     board = models.ForeignKey(Board,on_delete=models.CASCADE)
+    figure = models.ForeignKey(User2Figure,on_delete=models.SET_NULL, null=True, blank=True)
+    color = models.CharField(max_length=90, choices=COLOR,
+                  default="white")

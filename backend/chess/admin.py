@@ -1,5 +1,5 @@
 from django.contrib import admin
-from chess.models import SocialAuth, UserProfile, Figure
+from chess.models import SocialAuth, UserProfile, Figure, Board, User2Figure, Cell
 # Register your models here.
 
 @admin.register(SocialAuth)
@@ -13,3 +13,15 @@ class UserProfileAdmin(admin.ModelAdmin):
 @admin.register(Figure)
 class FigureAdmin(admin.ModelAdmin):
     list_display = ['name', 'color','image_tag']
+
+@admin.register(Board)
+class BoardAdmin(admin.ModelAdmin):
+    list_display = ['owner', 'uuid']
+
+@admin.register(User2Figure)
+class BoardAdmin(admin.ModelAdmin):
+    list_display = ['user', 'figure']
+
+@admin.register(Cell)
+class CellAdmin(admin.ModelAdmin):
+    list_display = ['board', 'figure', 'color']

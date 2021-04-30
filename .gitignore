@@ -2,3 +2,4 @@
 __pycache__
 venv
 backend/static/build
+backend/media
