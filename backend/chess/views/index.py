@@ -93,7 +93,7 @@ from django.http import HttpResponse
 from django.template.loader import render_to_string
 
 
-def index(request): 
+def index(request, board_id=None): 
     board = create_board_db()
     tpl = render_to_string('index.html', {"board": board})
     tpl = tpl.replace('src="/static','src="/static/build/static')
@@ -102,3 +102,4 @@ def index(request):
     
     
     return HttpResponse(tpl)
+

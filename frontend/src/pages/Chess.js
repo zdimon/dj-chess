@@ -10,6 +10,7 @@ import './Chess.css'
 function Chess() {
   const [is_active_board, setIsActiveBoard] = useState(false);
   const [board, setBoard] = useState([]);
+  const [link, setLink] = useState('');
 
   const doCreate = () => {
      var r = new Request();
@@ -17,6 +18,8 @@ function Chess() {
      .then((payload) => {
       setBoard(payload.cells);
       setIsActiveBoard(true);
+      localStorage.setItem('board',payload.uuid);
+      setLink(`${config.siteURL}board/${payload.uuid}`);
     })
 
   }
@@ -27,6 +30,14 @@ function Chess() {
     // .then((payload) => {
     //    setBoard(payload);
     // });
+    if(localStorage.getItem('board')){
+      var r = new Request();
+      r.get(`chess/get/board/${localStorage.getItem('board')}`)
+      .then((payload) => {
+       setBoard(payload.cells);
+       setIsActiveBoard(true);
+     })
+    }
     var socket = io(`${config.socketURL}`)
     socket.on('messages', (message) => {
       console.log(message);
@@ -50,7 +61,10 @@ function Chess() {
     <div className="Chess" >
        {
          is_active_board?
-         <Board id="board" board={board} />
+         <>
+          <p className="link">{link}</p>
+          <Board id="board" board={board} />
+         </>
          :
          <div className="create-game-div">
          <Button 

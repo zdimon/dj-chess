@@ -1,10 +1,11 @@
 from chess.views.create_board import CreateBoardView
 from django.urls import path, include
-from chess.views import GoogleView, GetBoardView, CreateBoardView, AddAgressorBoardView
+from chess.views import GoogleView, GetBoardView, CreateBoardView, AddAgressorBoardView, EmailAuthView
 
 urlpatterns = [ 
         path('login/', GoogleView.as_view()),
-        path('get/board', GetBoardView.as_view()),
+        path('login/byemail', EmailAuthView.as_view()),
+        path('get/board/<str:board_id>', GetBoardView.as_view()),
         path('create/board', CreateBoardView.as_view()),
         path('add/agressor/<str:board_id>', AddAgressorBoardView.as_view()),
 ]

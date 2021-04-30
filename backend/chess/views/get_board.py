@@ -3,8 +3,9 @@ from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from drf_yasg.utils import swagger_auto_schema
 from django.conf import settings
-import os
-import json
+from chess.models import Board
+from chess.serializers import BoardSerializer
+
 
 class GetBoardView(APIView):
     '''
@@ -17,11 +18,9 @@ class GetBoardView(APIView):
     permission_classes = ()
     authentication_classes = ()
     @swagger_auto_schema( 
-        
+            responses={200: BoardSerializer }
         )
-    def get(self, request, format=None):
-        path = os.path.join(settings.BASE_DIR,'static', 'db.json')
-        with open(path, 'r') as f:
-            dt = json.loads(f.read())
-        return Response(dt)
+    def get(self, request, board_id, format=None):
+        board = Board.objects.get(uuid=board_id)
+        return Response(BoardSerializer(board).data)
 

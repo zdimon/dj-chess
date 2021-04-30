@@ -32,6 +32,7 @@ urlpatterns = [
     path('', index),
     path('chess', index),
     path('login', index),
+    path('board/<str:board_id>', index),
     path('admin/', admin.site.urls),
     path('api', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('v1/',include([

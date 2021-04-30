@@ -16,7 +16,7 @@ class AddAgressorBoardView(APIView):
     
     permission_classes = (IsAuthenticated,)
     @swagger_auto_schema( 
-        responses={200: BoardSerializer }
+          responses={200: BoardSerializer }
         )
     def get(self, request, board_id, format=None):
         board = Board.objects.get(uuid=board_id)

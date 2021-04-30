@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Chess from './pages/Chess';
 import Login from './pages/Login';
 import Navbar from './components/Navbar';
+import Invite from './pages/Invite';
 import { Redirect } from 'react-router'
 
 import {
@@ -32,6 +33,9 @@ function App() {
           <Router>
             <Navbar isAuth={isAuth} onLogout={doLogout}  />
             <Switch>
+            <Route path="/board/:id" render={(props) => <Invite handleLogin={doLogin} {...props} />}>
+               
+            </Route>
               
               <Route path="/login" render= {
                 () => {
