@@ -139,6 +139,7 @@ LOGIN_URL='/v1/chess/login/'
 CELERY_BROKER_URL = 'redis://localhost:6379/0'
 
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_URL = '/media/'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -146,3 +147,5 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
     ],
 }
+
+from .local import *

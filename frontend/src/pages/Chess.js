@@ -4,7 +4,7 @@ import Board from '../components/Board';
 import io from 'socket.io-client'
 import {config} from '../config';
 import Button from '@material-ui/core/Button';
-
+import Figures from '../components/Figures';
 import './Chess.css'
 
 function Chess() {
@@ -50,7 +50,10 @@ function Chess() {
     <div className="Chess" >
        {
          is_active_board?
+         <>
+         <Figures />
          <Board id="board" board={board} />
+         </>
          :
          <div className="create-game-div">
          <Button 

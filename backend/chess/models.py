@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from .tasks import update_users_online
 import uuid
 from django.utils.html import mark_safe
+from django.conf import settings
 
 class UserProfile(User):
     publicname = models.CharField(default='', max_length=250)
@@ -67,6 +68,9 @@ class Figure(models.Model):
     def __str__(self):
         return f'{self.name}({self.color})'
 
+    @property
+    def get_image_absolute_url(self):
+        return f'{settings.BASE_URL}/{self.image.url}'
 
     @property
     def image_tag(self):
