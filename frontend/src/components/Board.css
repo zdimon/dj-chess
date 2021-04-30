@@ -1,8 +1,8 @@
 .Board {
     background-color: aquamarine;
     margin: 0 auto;
-    width: 800px;
-    height: 800px;
+    width: 400px;
+    height: 400px;
     display: flex;
     flex-wrap: wrap; 
 }

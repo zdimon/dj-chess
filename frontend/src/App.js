@@ -35,7 +35,7 @@ function App() {
             <Switch>
             <Route path="/board/:id" render={(props) => <Invite handleLogin={doLogin} {...props} />}>
                
-            </Route>
+            </Route> 
               
               <Route path="/login" render= {
                 () => {

@@ -19,6 +19,7 @@ class GetFiguresView(APIView):
         
     )
     def get(self, request, format=None):
+        # print(request.user)
         figures = []
         for f in User2Figure.objects.filter(user=request.user):
             figures.append(FigureSerializer(f).data)

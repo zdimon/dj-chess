@@ -21,7 +21,8 @@ class FigureSerializer(serializers.ModelSerializer):
         fields = [   
                     'board', 
                     'figure',
-                    'user'
+                    'user',
+                    'id'
                     ]
 
 

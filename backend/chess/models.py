@@ -70,7 +70,7 @@ class Figure(models.Model):
 
     @property
     def get_image_absolute_url(self):
-        return f'{settings.BASE_URL}/{self.image.url}'
+        return f'{settings.BASE_URL}{self.image.url}'
 
     @property
     def image_tag(self):

@@ -1,16 +1,21 @@
 import './Board.css';
-import React from 'react';
 import Cell from './Cell';
-
+import React , { useState, useEffect } from 'react';
 
 function Board(props) {
-  console.log(props);
-
+  const [activeCell, setActiveCell] = useState(null);
+  const handelActiveCell = (id) => {
+    setActiveCell(id);
+    props.doActiveCell(id);
+  }
   return (
     <div className="Board" >
        {
          props.board? 
-         props.board.map((el,index) => <Cell cell={el} />)
+         props.board.map((el,index) => <Cell
+         active_cell={activeCell} 
+         doActiveCell={handelActiveCell}
+         cell={el} />)
          :
          <></>
       }       
