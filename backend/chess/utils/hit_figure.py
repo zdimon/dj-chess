@@ -15,4 +15,6 @@ def heal_figure(figure,damage=10):
     # print('damage to %s' % figure.figure)
     if figure.helth < 100:
         figure.helth += damage
+        if figure.helth > 100:
+            figure.helth = 100
         figure.save()

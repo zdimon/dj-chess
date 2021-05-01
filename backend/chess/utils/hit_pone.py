@@ -47,5 +47,8 @@ def hit_pone(figure):
 
     for c in hits:
         if(c.figure):
-            hit_figure(c.figure)
+            if (c.figure.figure.color == figure.figure.color):
+                heal_figure(c.figure,20)
+            else:
+                hit_figure(c.figure,20)
 
