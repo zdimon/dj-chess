@@ -6,13 +6,13 @@ function Cell(props) {
   const doActiveCell = (id) => {
     props.doActiveCell(id);
   }
-
+  //console.log(props.cell);
 
   return (
     <div 
     onClick={() => doActiveCell(props.cell.id)} 
     className={`cell bg-${props.cell.color} ${ props.cell.id === props.active_cell? "active-cell" : ""}`} >
-      { props.cell.figure ? <img class="chess-figure" src={`/static/images/${props.cell.figure}.svg`} />: ''}
+      { props.cell.figure ? <img class="chess-figure" src={props.cell.figure.figure.get_image_absolute_url} />: ''}
           
     </div>  
   );

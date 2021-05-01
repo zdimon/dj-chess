@@ -35,6 +35,8 @@ function Navbar(props) {
       console.log('Logout');
       localStorage.removeItem('token');
       localStorage.removeItem('username');
+      localStorage.removeItem('board');
+      localStorage.removeItem('login');
       props.onLogout();
     }
     return (

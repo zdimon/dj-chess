@@ -87,10 +87,14 @@ class Board(models.Model):
     owner = models.ForeignKey(UserProfile,on_delete=models.SET_NULL, null=True, blank=True, related_name='owner')
     agressor = models.ForeignKey(UserProfile,on_delete=models.SET_NULL, null=True, blank=True, related_name='agressor')
 
+    def __str__(self):
+        return str(self.uuid)
+
 class User2Figure(models.Model):
     user = models.ForeignKey(UserProfile,on_delete=models.CASCADE)
     figure = models.ForeignKey(Figure,on_delete=models.CASCADE)
     board = models.ForeignKey(Board,on_delete=models.CASCADE)
+    on_board = models.BooleanField(default=False)
 
 class Cell(models.Model):
     board = models.ForeignKey(Board,on_delete=models.CASCADE)

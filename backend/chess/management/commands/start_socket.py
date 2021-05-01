@@ -4,13 +4,18 @@ import socketio
 import eventlet
 from chess.models import UserProfile
 eventlet.monkey_patch()
-mgr = socketio.RedisManager('redis://localhost:6379/0')
+from django.conf import settings
+mgr = socketio.RedisManager(settings.SOCKET_BROKER_URL)
 sio = socketio.Server(cors_allowed_origins='*',async_mode='eventlet',client_manager=mgr)
 app = socketio.WSGIApp(sio)
 
 def add_user_sid(sid,data):
-    user = UserProfile.objects.get(username=data['login'])
-    user.add_sid(sid)
+    try:
+        user = UserProfile.objects.get(username=data['login'])
+        user.add_sid(sid)
+    except Exception as e:
+        print(e)
+        print(data['login'])
 
 def remove_user_sid(sid):
     UserProfile.remove_sid(sid)
@@ -18,6 +23,7 @@ def remove_user_sid(sid):
 @sio.event
 def login(sid, data):
     print('Adding sid %s' % sid)
+    print(data)
     thread = threading.Thread(target=add_user_sid, args=(sid,data))
     thread.start()
 

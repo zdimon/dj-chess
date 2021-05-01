@@ -18,8 +18,7 @@ class FigureSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = User2Figure
-        fields = [   
-                    'board', 
+        fields = [    
                     'figure',
                     'user',
                     'id'

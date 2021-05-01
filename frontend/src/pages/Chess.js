@@ -15,6 +15,7 @@ function Chess() {
 
   const [activeCell, setActiveCell] = useState(null);
   const [activeFigure, setActiveFigure] = useState(null);
+  const [figures, setFigures] = useState([]);
   
 
 
@@ -26,25 +27,25 @@ function Chess() {
       setIsActiveBoard(true);
       localStorage.setItem('board',payload.uuid);
       setLink(`${config.siteURL}board/${payload.uuid}`);
+      getFigures();
     })
 
   }
 
   useEffect(() => { 
-    // var r = new Request();
-    // r.get('chess/get/board')
-    // .then((payload) => {
-    //    setBoard(payload);
-    // });
+
     if(localStorage.getItem('board')){
       var r = new Request();
       r.get(`chess/get/board/${localStorage.getItem('board')}`)
       .then((payload) => {
        setBoard(payload.cells);
        setIsActiveBoard(true);
+       setLink(`${config.siteURL}board/${payload.uuid}`);
      })
     }
-    var socket = io(`${config.socketURL}`)
+    var socket = io(`${config.socketURL}`,{
+      transports: ["websocket"]
+    })
     socket.on('messages', (message) => {
       console.log(message);
     });
@@ -53,7 +54,8 @@ function Chess() {
         socket.emit(
           'login',
         {
-          login: localStorage.getItem('login')
+          login: localStorage.getItem('login'),
+          sid: socket.sid
         });
     });
 
@@ -61,12 +63,18 @@ function Chess() {
         console.log(payload);
     });
 
+    socket.on('update_board', (payload) => {
+      setBoard(payload.cells);
+    });
+
+
 
   }, [])
 
 
   useEffect(() => { 
-    checkMoving()
+    checkMoving();
+    getFigures();
   },[activeFigure, activeCell])
 
   const checkMoving = () => {
@@ -79,9 +87,10 @@ function Chess() {
       var r = new Request();
       r.post('chess/set/figure',data)
       .then((payload) => {
-         console.log(payload);
          setActiveCell(null);
          setActiveFigure(null);
+         setBoard(payload.cells);
+         getFigures();
      })      
     }
   }
@@ -93,8 +102,12 @@ function Chess() {
     setActiveFigure(id);
   }
 
-  const doMove = () => {
-
+  const getFigures = () => {
+    var r = new Request();
+    r.get('chess/get/figures') 
+    .then((payload) => {
+      setFigures(payload);
+   })
   }
 
   return (
@@ -103,19 +116,10 @@ function Chess() {
          is_active_board?
          <Grid container>
            <Grid item xs={4}>
-            <Figures doActiveFigure={handleActiveFigure} />
-            {
-              activeCell && activeFigure? 
-              <Button 
-              variant="contained" 
-              color="primary" 
-              onClick={doMove}
-              >
-                Move figure.
-              </Button>   
-              :
-              ""
-            }
+            <Figures 
+            figures={figures}
+            doActiveFigure={handleActiveFigure} />
+            {link}
            </Grid>
            <Grid item xs={8}>
             <Board 

@@ -16,11 +16,11 @@ class FigureAdmin(admin.ModelAdmin):
 
 @admin.register(Board)
 class BoardAdmin(admin.ModelAdmin):
-    list_display = ['owner', 'uuid']
+    list_display = ['owner','agressor', 'uuid']
 
 @admin.register(User2Figure)
 class BoardAdmin(admin.ModelAdmin):
-    list_display = ['user', 'figure']
+    list_display = ['user', 'figure', 'on_board']
 
 @admin.register(Cell)
 class CellAdmin(admin.ModelAdmin):

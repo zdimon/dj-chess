@@ -29,9 +29,14 @@ function Invite(props) {
       .then((payload) => {
         localStorage.setItem('token',payload.token);
         localStorage.setItem('username',payload.username);
+        localStorage.setItem('login',payload.username);
         setIsAuth(true);
         props.handleLogin();
-    })
+        r.get(`chess/add/agressor/${props.match.params.id}`).then((payload) => {
+          console.log(payload);
+        })
+      })
+      
   }
 
   const changeEmail = (evt) => {

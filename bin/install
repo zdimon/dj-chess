@@ -2,6 +2,8 @@ cd backend
 python3 -m venv venv
 . ./venv/bin/activate
 pip install -r requirements.txt
+./manage.py migrate
+./manage.py load_data
 cd ../frontend
 npm install
 npm start build

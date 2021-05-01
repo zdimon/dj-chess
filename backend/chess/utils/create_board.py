@@ -20,26 +20,26 @@ def make_cells(board):
             
 
 
-def give_figures(board):
-    for f in Figure.objects.filter(color="white"):
+def give_figures(board,user,color="white"):
+    for f in Figure.objects.filter(color=color):
         if f.name == 'pone':
             for cnt in range(1,9):
                 u2f = User2Figure()
                 u2f.figure = f
-                u2f.user = board.owner
+                u2f.user = user
                 u2f.board = board
                 u2f.save()
         elif f.name == 'rook' or f.name == 'bishop' or f.name == 'knite':
             for cnt in range(1,3):
                 u2f = User2Figure()
                 u2f.figure = f
-                u2f.user = board.owner
+                u2f.user = user
                 u2f.board = board
                 u2f.save()
         else:
             u2f = User2Figure()
             u2f.figure = f
-            u2f.user = board.owner
+            u2f.user = user
             u2f.board = board
             u2f.save()
 
@@ -52,6 +52,6 @@ def get_or_create_board(user):
         board = Board()
         board.owner = user
         board.save()
-        give_figures(board)
+        give_figures(board,board.owner)
         make_cells(board)
     return board

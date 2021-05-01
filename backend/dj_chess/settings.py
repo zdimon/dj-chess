@@ -138,6 +138,9 @@ LOGIN_URL='/v1/chess/login/'
 
 CELERY_BROKER_URL = 'redis://localhost:6379/0'
 
+SOCKET_BROKER_URL = 'redis://localhost:6379/0'
+
+
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 MEDIA_URL = '/media/'
 
