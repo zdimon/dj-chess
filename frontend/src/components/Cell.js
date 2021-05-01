@@ -4,8 +4,18 @@ import React , { useState, useEffect } from 'react';
 function Cell(props) {
   const [activeCell, setActiveCell] = useState(null);
   const doActiveCell = (cell) => {
-    if(!cell.figure) {
-      props.doActiveCell(cell.id);
+    if (props.stage === 'setting') {
+      if(!cell.figure) {
+        props.doActiveCell(cell.id);
+      }
+    }
+
+    if (props.stage === 'play') {
+      if(cell.figure) {
+        props.doActiveCell(cell.id);
+      } else {
+        props.doMove(cell.id);
+      }
     }
     
   }

@@ -8,13 +8,20 @@ function Board(props) {
     setActiveCell(id);
     props.doActiveCell(id);
   }
+
+  const handelMove = (id) => {
+    props.doMove(id);
+  }
+
   return (
     <div className="Board" >
        {
          props.board? 
          props.board.map((el,index) => <Cell
+         stage={props.stage}
          active_cell={activeCell} 
          doActiveCell={handelActiveCell}
+         doMove={handelMove}
          cell={el} />)
          :
          <></>

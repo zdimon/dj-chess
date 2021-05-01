@@ -20,6 +20,7 @@ function Chess() {
   const [activeCell, setActiveCell] = useState(null);
   const [activeFigure, setActiveFigure] = useState(null);
   const [figures, setFigures] = useState([]);
+  const [stage, setStage] = useState('setting');
   
 
 
@@ -45,6 +46,7 @@ function Chess() {
        setBoard(payload.cells);
        setIsActiveBoard(true);
        setLink(`${config.siteURL}board/${payload.uuid}`);
+       setStage(payload.stage);
      })
     }
     var socket = io(`${config.socketURL}`,{
@@ -70,6 +72,13 @@ function Chess() {
     socket.on('update_board', (payload) => {
       setBoard(payload.cells);
     });
+
+    socket.on('update_stage', (payload) => {
+      setStage(payload.stage);
+      setOpenSnack(true);
+      setSnackMessage('Game started. Good luck!')
+    });
+
 
 
 
@@ -124,6 +133,22 @@ function Chess() {
     setOpenSnack(false);
   }
 
+  const handleMove = (id) => {
+    console.log('Moving!!!!');
+    console.log(activeCell);
+    console.log(id);
+    const data = {
+      from: activeCell,
+      to: id,
+      board: localStorage.getItem('board')
+    }
+    var r = new Request();
+    r.post('chess/move/figure',data) 
+    .then((payload) => {
+      console.log(payload);
+   })
+  }
+
   return (
     <div className="Chess" >
        {
@@ -133,12 +158,19 @@ function Chess() {
             <Figures 
             figures={figures}
             doActiveFigure={handleActiveFigure} />
-            {link}
+            <p>
+              Link: {link}
+            </p>
+            <p>
+              Stage: {stage}
+            </p>
            </Grid>
            <Grid item xs={8}>
             <Board 
             doActiveCell={handleActiveCell}
+            doMove={handleMove}
             id="board" 
+            stage={stage}
             board={board} />
            </Grid>
          </Grid>
