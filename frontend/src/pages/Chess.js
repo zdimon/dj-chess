@@ -7,12 +7,16 @@ import Button from '@material-ui/core/Button';
 import Figures from '../components/Figures';
 import './Chess.css'
 import Grid from '@material-ui/core/Grid';
+import Snackbar from '@material-ui/core/Snackbar';
+
+
 
 function Chess() {
   const [is_active_board, setIsActiveBoard] = useState(false);
   const [board, setBoard] = useState([]);
   const [link, setLink] = useState('');
-
+  const [openSnack, setOpenSnack] = useState(false);
+  const [snackMessage, setSnackMessage] = useState('');
   const [activeCell, setActiveCell] = useState(null);
   const [activeFigure, setActiveFigure] = useState(null);
   const [figures, setFigures] = useState([]);
@@ -87,10 +91,16 @@ function Chess() {
       var r = new Request();
       r.post('chess/set/figure',data)
       .then((payload) => {
+         console.log(payload);
+         if(payload.status === 0) {
          setActiveCell(null);
          setActiveFigure(null);
-         setBoard(payload.cells);
-         getFigures();
+         setBoard(payload.payload.cells);
+         getFigures(); 
+         } else {
+           setOpenSnack(true);
+           setSnackMessage(payload.message);
+         }
      })      
     }
   }
@@ -108,6 +118,10 @@ function Chess() {
     .then((payload) => {
       setFigures(payload);
    })
+  }
+
+  const handleCloseSnackbar = () => {
+    setOpenSnack(false);
   }
 
   return (
@@ -139,7 +153,16 @@ function Chess() {
          </Button>
          </div>
        }
-         
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'center',
+          horizontal: 'center',
+        }}
+        open={openSnack}
+        autoHideDuration={3000}
+        onClose={handleCloseSnackbar}
+        message={snackMessage}
+      />
     </div> 
   );
 }

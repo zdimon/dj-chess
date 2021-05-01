@@ -4,3 +4,4 @@ venv
 backend/static/build
 backend/media
 backend/dj_chess/local.py
+backend/db.sqlite3
