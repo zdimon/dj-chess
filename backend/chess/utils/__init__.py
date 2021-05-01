@@ -3,3 +3,8 @@ from .add_agressor import *
 from .hit_pone import *
 from .hit_figure import *
 from .get_cell_id import *
+from .hit_bishop import *
+from .hit_rook import *
+from .hit_queen import *
+from .hit_knite import *
+from .hit_king import *

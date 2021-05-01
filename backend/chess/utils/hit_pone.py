@@ -8,7 +8,6 @@ def hit_pone(figure):
     print('hitting from row %s col %s' % (cell.row,cell.col))
     hits = []
     if figure.figure.color == 'white':
-        print('Whiteeeee')
         if(cell.col == 1):
             hits.append(get_cell_id(figure.board,cell.row+1,cell.col+1))
 
@@ -20,7 +19,6 @@ def hit_pone(figure):
             hits.append(get_cell_id(figure.board,cell.row+1,cell.col-1))
 
     if figure.figure.color == 'black':
-        print('Blackkkkkkk')
         if(cell.col == 1):
             hits.append(get_cell_id(figure.board,cell.row-1,cell.col-1))
 
@@ -35,6 +33,4 @@ def hit_pone(figure):
     for c in hits:
         if(c.figure):
             hit_figure(c.figure)
-    # hit_figure(figure)
-    # two = (settings.BOARD_WIDTH+1)+figure.cellid
-    # hit_figure(figure)
+

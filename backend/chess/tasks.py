@@ -48,21 +48,34 @@ def control_stage(board_id):
 @shared_task
 def hit_figures(board_id,user_id):
     from .models import Board, User2Figure
-    from chess.utils import hit_pone
+    from chess.utils import hit_pone, hit_bishop
     board = Board.objects.get(pk=board_id)
     figures = User2Figure.objects.filter(board=board,user_id=user_id)
     for f in figures:
         if f.figure.name == 'pone':
             hit_pone(f)
+        if f.figure.name == 'bishop':
+            hit_bishop(f)
     update_board.delay(board.uuid)
 
 
 @shared_task
 def hit_figure(figure_id):
     from .models import Board, User2Figure
-    from chess.utils import hit_pone 
+    from chess.utils import hit_pone, hit_bishop, hit_rook, hit_queen, hit_knite, hit_king
     figure = User2Figure.objects.get(pk=figure_id)
     board = figure.board
     if figure.figure.name == 'pone':
         hit_pone(figure)
+    if figure.figure.name == 'bishop':
+        hit_bishop(figure)
+    if figure.figure.name == 'rook':
+        hit_rook(figure)
+    if figure.figure.name == 'queen':
+        hit_queen(figure)
+    if figure.figure.name == 'knite':
+        hit_knite(figure)
+    if figure.figure.name == 'king':
+        hit_king(figure)
+
     update_board.delay(board.uuid)
