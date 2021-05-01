@@ -16,7 +16,7 @@ class FigureAdmin(admin.ModelAdmin):
 
 @admin.register(Board)
 class BoardAdmin(admin.ModelAdmin):
-    list_display = ['owner','agressor', 'uuid']
+    list_display = ['owner','agressor', 'uuid', 'stage']
 
 @admin.register(User2Figure)
 class BoardAdmin(admin.ModelAdmin):

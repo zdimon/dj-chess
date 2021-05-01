@@ -20,10 +20,24 @@ def update_board(board_id):
     from chess.serializers import BoardSerializer
     board = Board.objects.get(pk=board_id)
     print('Sending update board command!')
-    print(BoardSerializer(board).data)
     for room in board.agressor.get_sids():
         print(room)
         mgr.emit('update_board', data=BoardSerializer(board).data, room=room)
     for room in board.owner.get_sids():
         print(room)
         mgr.emit('update_board', data=BoardSerializer(board).data, room=room)
+
+@shared_task
+def control_stage(board_id):
+    print('Controlling stage')
+    from .models import Board, User2Figure
+    board = Board.objects.get(pk=board_id)
+    if User2Figure.objects.filter(board=board,on_board=False).count() == 0:
+        board.stage = 'play'
+        board.save()
+        for room in board.agressor.get_sids():
+            print(room)
+            mgr.emit('update_stage', data={"stage": "play"}, room=room)
+        for room in board.owner.get_sids():
+            print(room)
+            mgr.emit('update_stage', data={"stage": "play"}, room=room)

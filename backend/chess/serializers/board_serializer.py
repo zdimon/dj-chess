@@ -6,9 +6,17 @@ from .cell_serializer import CellSerializer
 class BoardSerializer(serializers.ModelSerializer):
     cells = serializers.SerializerMethodField()
 
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user')
+        super().__init__(*args, **kwargs)
+
     def get_cells(self, obj=None):
         cells = []
-        for c in Cell.objects.filter(board=obj):
+        if self.user.username != obj.owner.username:
+            cells_q =  Cell.objects.filter(board=obj).order_by('id')
+        else:
+            cells_q =  Cell.objects.filter(board=obj).order_by('-id')
+        for c in cells_q:
             cells.append(CellSerializer(c).data)
         return cells
 
@@ -18,7 +26,8 @@ class BoardSerializer(serializers.ModelSerializer):
                     'owner', 
                     'agressor',
                     'uuid',
-                    'cells'
+                    'cells',
+                    'stage'
                     ]
 
 

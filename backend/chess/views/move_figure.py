@@ -9,9 +9,9 @@ import json
 from chess.tasks import update_board, control_stage
 
 
-class SetFigureView(APIView):
+class MoveFigureView(APIView):
     '''
-    Set figure on desk.
+    Move figure on desk.
 
     _______________________
 
@@ -23,17 +23,13 @@ class SetFigureView(APIView):
         )
     def post(self, request, format=None):
         data = json.loads(request.body)
-        cell = Cell.objects.get(id=data["cell"])
-        if cell.figure:
-            return Response({"status": 1, "message": "This cell is not empty!"})
-        
-        board = Board.objects.get(uuid=data["uuid"])
-        u2f = User2Figure.objects.get(id=data["figure"])
-        u2f.on_board = True
-        u2f.save()
-        cell.figure = u2f
-        cell.save()
+        board = Board.objects.get(pk=data["board"])
+        cell_from = Cell.objects.get(pk=data["from"])
+        cell_to = Cell.objects.get(pk=data["to"])
+        cell_to.figure = cell_from.figure
+        cell_from.figure = None
+        cell_from.save()
+        cell_to.save()
         update_board.delay(board.uuid)
-        control_stage.delay(board.uuid)
         return Response({"status": 0, "payload": BoardSerializer(board).data})
 

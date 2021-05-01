@@ -59,6 +59,12 @@ COLOR = (
     ("white", "White")
 )
 
+STAGE = (
+    ("setting", "setting"),
+    ("play", "play")
+)
+
+
 class Figure(models.Model):
     name = models.CharField(max_length=90)
     image = models.ImageField(upload_to='figures')
@@ -86,7 +92,8 @@ class Board(models.Model):
     uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     owner = models.ForeignKey(UserProfile,on_delete=models.SET_NULL, null=True, blank=True, related_name='owner')
     agressor = models.ForeignKey(UserProfile,on_delete=models.SET_NULL, null=True, blank=True, related_name='agressor')
-
+    stage = models.CharField(max_length=90, choices=STAGE,
+                  default="setting")
     def __str__(self):
         return str(self.uuid)
 
