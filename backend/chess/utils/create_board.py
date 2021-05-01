@@ -1,7 +1,7 @@
 from chess.models import Board, Figure, User2Figure, Cell
 
 def make_cells(board):
-    for x_item in range(1,9):
+    for x_item in range(1,12):
         tmp = [*range(1,9)]
         for t in tmp:
             c = Cell()
