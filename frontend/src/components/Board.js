@@ -10,7 +10,7 @@ function Board(props) {
   }
 
   const handelMove = (id) => {
-    props.doMove(id);
+    props.doMove(id); 
   }
 
   return (

@@ -97,7 +97,7 @@ function Chess() {
         cell: activeCell,
         uuid: localStorage.getItem('board')
       }
-      var r = new Request();
+      var r = new Request(); 
       r.post('chess/set/figure',data)
       .then((payload) => {
          console.log(payload);

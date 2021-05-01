@@ -1,5 +1,6 @@
 import './Cell.css'; 
 import React , { useState, useEffect } from 'react';
+import Badge from '@material-ui/core/Badge';
 
 function Cell(props) {
   const [activeCell, setActiveCell] = useState(null);
@@ -22,12 +23,21 @@ function Cell(props) {
   //console.log(props.cell);
 
   return (
+    
     <div 
     onClick={() => doActiveCell(props.cell)} 
     className={`cell bg-${props.cell.color} ${ props.cell.id === props.active_cell? "active-cell" : ""}`} >
-      { props.cell.figure ? <img class="chess-figure" src={props.cell.figure.figure.get_image_absolute_url} />: ''}
-          
-    </div>  
+      { props.cell.figure ? 
+      <>
+      <Badge max={100} badgeContent={props.cell.figure.helth} color="primary"></Badge>
+      
+      <img class="chess-figure" src={props.cell.figure.figure.get_image_absolute_url} />
+      
+      </>
+      : ''}
+      <p className="debug">{props.cell.id}  ({props.cell.row}/{props.cell.col})</p>  
+    </div> 
+   
   );
 }
 
