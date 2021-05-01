@@ -35,7 +35,7 @@ function Cell(props) {
       
       </>
       : ''}
-      <p className="debug">{props.cell.id}  ({props.cell.row}/{props.cell.col})</p>  
+       
     </div> 
    
   );
