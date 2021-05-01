@@ -5,7 +5,7 @@ from .get_cell_id import get_cell_id
 def hit_queen(figure):
     from chess.models import Cell
     cell = Cell.objects.get(pk=figure.cellid)
-    print('hitting from row %s col %s' % (cell.row,cell.col))
+    # print('hitting from row %s col %s' % (cell.row,cell.col))
     hits = []
 
     cnt = 1

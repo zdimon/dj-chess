@@ -52,6 +52,7 @@ def hit_figures(board_id,user_id):
     board = Board.objects.get(pk=board_id)
     figures = User2Figure.objects.filter(board=board,user_id=user_id)
     for figure in figures:
+        print(figure)
         if figure.figure.name == 'pone':
             hit_pone(figure)
         if figure.figure.name == 'bishop':

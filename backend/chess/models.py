@@ -105,6 +105,9 @@ class User2Figure(models.Model):
     helth = models.IntegerField(default=100)
     cellid = models.IntegerField(default=0)
 
+    def __str__(self):
+        return '%s (%s)' % (self.figure.name, self.figure.color)
+
 class Cell(models.Model):
     board = models.ForeignKey(Board,on_delete=models.CASCADE)
     figure = models.ForeignKey(User2Figure,on_delete=models.SET_NULL, null=True, blank=True)
