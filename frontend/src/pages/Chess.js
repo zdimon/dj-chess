@@ -104,7 +104,6 @@ function Chess() {
          if(payload.status === 0) {
          setActiveCell(null);
          setActiveFigure(null);
-         setBoard(payload.payload.cells);
          getFigures(); 
          } else {
            setOpenSnack(true);

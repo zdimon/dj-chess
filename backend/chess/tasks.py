@@ -22,10 +22,10 @@ def update_board(board_id):
     print('Sending update board command!')
     for room in board.agressor.get_sids():
         print(room)
-        mgr.emit('update_board', data=BoardSerializer(board).data, room=room)
+        mgr.emit('update_board', data=BoardSerializer(board,user=board.agressor).data, room=room)
     for room in board.owner.get_sids():
         print(room)
-        mgr.emit('update_board', data=BoardSerializer(board).data, room=room)
+        mgr.emit('update_board', data=BoardSerializer(board,user=board.owner).data, room=room)
 
 @shared_task
 def control_stage(board_id):

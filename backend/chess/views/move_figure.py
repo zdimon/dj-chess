@@ -31,5 +31,5 @@ class MoveFigureView(APIView):
         cell_from.save()
         cell_to.save()
         update_board.delay(board.uuid)
-        return Response({"status": 0, "payload": BoardSerializer(board).data})
+        return Response({"status": 0, "message": "Ok"})
 
