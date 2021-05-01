@@ -3,7 +3,7 @@ from chess.models import Figure
 from django.core.files import File
 from django.conf import settings
 import os
-from chess.models import UserProfile
+from chess.models import UserProfile, Board
 
 
 FIGURES = [
@@ -20,6 +20,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         print('Loading figures')
         Figure.objects.all().delete()
+        Board.objects.all().delete()
         for fn in FIGURES:
             f = Figure()
             f.name = fn
