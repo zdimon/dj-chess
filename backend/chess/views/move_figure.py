@@ -33,7 +33,7 @@ class MoveFigureView(APIView):
         cell_from.figure = None
         cell_from.save()
         cell_to.save()
-        #hit_figures.delay(board.uuid,request.user.id)
-        hit_figure.delay(figure.id)
+        hit_figures.delay(board.uuid,request.user.id)
+        #hit_figure.delay(figure.id)
         return Response({"status": 0, "message": "Ok"})
 
