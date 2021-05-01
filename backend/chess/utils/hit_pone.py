@@ -9,27 +9,42 @@ def hit_pone(figure):
     hits = []
     if figure.figure.color == 'white':
         if(cell.col == 1):
-            hits.append(get_cell_id(figure.board,cell.row+1,cell.col+1))
+            tc = get_cell_id(figure.board,cell.row+1,cell.col+1)
+            if tc:
+                hits.append(tc)
 
         elif(cell.col == settings.BOARD_WIDTH):
-            hits.append(get_cell_id(figure.board,cell.row+1,cell.col-1))
+            tc = get_cell_id(figure.board,cell.row+1,cell.col-1)
+            if tc:
+                hits.append(tc)
 
         else:
-            hits.append(get_cell_id(figure.board,cell.row+1,cell.col+1))
-            hits.append(get_cell_id(figure.board,cell.row+1,cell.col-1))
+            tc = get_cell_id(figure.board,cell.row+1,cell.col+1)
+            if tc:
+                hits.append(tc)
+            tc = get_cell_id(figure.board,cell.row+1,cell.col-1)
+            if tc:
+                hits.append(tc)
 
     if figure.figure.color == 'black':
         if(cell.col == 1):
-            hits.append(get_cell_id(figure.board,cell.row-1,cell.col-1))
+            tc = get_cell_id(figure.board,cell.row-1,cell.col-1)
+            if tc:
+                hits.append(tc)
 
         elif(cell.col == settings.BOARD_WIDTH):
-            hits.append(get_cell_id(figure.board,cell.row-1,cell.col+1))
+            tc = get_cell_id(figure.board,cell.row-1,cell.col+1)
+            if tc:
+                hits.append(tc)
 
         else:
-            hits.append(get_cell_id(figure.board,cell.row-1,cell.col-1))
-            hits.append(get_cell_id(figure.board,cell.row-1,cell.col+1))
+            tc = get_cell_id(figure.board,cell.row-1,cell.col-1)
+            if tc:
+                hits.append(tc)
+            tc = get_cell_id(figure.board,cell.row-1,cell.col+1)
+            if tc:
+                hits.append(tc)
 
-    print(hits)
     for c in hits:
         if(c.figure):
             hit_figure(c.figure)
