@@ -1,5 +1,5 @@
 from django.conf import settings
-from .hit_figure import hit_figure
+from .hit_figure import hit_figure, heal_figure
 from .get_cell_id import get_cell_id
 
 def hit_pone(figure):

@@ -95,9 +95,6 @@ def hit_queen(figure):
         else:
             break
 
-
-
-    print(hits)
     for c in hits:
         if(c.figure):
             if (c.figure.figure.color == figure.figure.color):
