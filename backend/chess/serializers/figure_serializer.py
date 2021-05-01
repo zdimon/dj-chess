@@ -21,6 +21,7 @@ class FigureSerializer(serializers.ModelSerializer):
         fields = [    
                     'figure',
                     'user',
+                    'helth',
                     'id'
                     ]
 
@@ -29,7 +30,6 @@ class FiguresSerializer(serializers.Serializer):
     figures = serializers.SerializerMethodField()
     def get_figures(self, obj=None):
         figures = []
-        print('sssssssssssss')
         for c in User2Figure.objects.all():
             figures.append(FigureSerializer(c).data)
             print(c)

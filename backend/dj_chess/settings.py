@@ -151,5 +151,6 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication'
     ],
 }
+BOARD_WIDTH = 8
 
 from .local import *

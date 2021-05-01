@@ -5,6 +5,8 @@ def make_cells(board):
         tmp = [*range(1,9)]
         for t in tmp:
             c = Cell()
+            c.col = t
+            c.row = x_item
             c.board = board
             if x_item%2 == 0:
                 if t%2 == 0 :

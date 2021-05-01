@@ -6,7 +6,7 @@ from chess.serializers import BoardSerializer, CellSerializer
 from chess.utils import get_or_create_board
 from chess.models import Board, Cell, User2Figure
 import json
-from chess.tasks import update_board, control_stage
+from chess.tasks import update_board, control_stage, hit_figures, hit_figure
 
 
 class MoveFigureView(APIView):
@@ -26,10 +26,14 @@ class MoveFigureView(APIView):
         board = Board.objects.get(pk=data["board"])
         cell_from = Cell.objects.get(pk=data["from"])
         cell_to = Cell.objects.get(pk=data["to"])
-        cell_to.figure = cell_from.figure
+        figure = cell_from.figure
+        figure.cellid = cell_to.id
+        figure.save()
+        cell_to.figure = figure
         cell_from.figure = None
         cell_from.save()
         cell_to.save()
-        update_board.delay(board.uuid)
+        #hit_figures.delay(board.uuid,request.user.id)
+        hit_figure.delay(figure.id)
         return Response({"status": 0, "message": "Ok"})
 

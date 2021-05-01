@@ -102,9 +102,13 @@ class User2Figure(models.Model):
     figure = models.ForeignKey(Figure,on_delete=models.CASCADE)
     board = models.ForeignKey(Board,on_delete=models.CASCADE)
     on_board = models.BooleanField(default=False)
+    helth = models.IntegerField(default=100)
+    cellid = models.IntegerField(default=0)
 
 class Cell(models.Model):
     board = models.ForeignKey(Board,on_delete=models.CASCADE)
     figure = models.ForeignKey(User2Figure,on_delete=models.SET_NULL, null=True, blank=True)
     color = models.CharField(max_length=90, choices=COLOR,
                   default="white")
+    row = models.IntegerField(default=0)
+    col = models.IntegerField(default=0)

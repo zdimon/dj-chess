@@ -18,10 +18,11 @@ class FigureAdmin(admin.ModelAdmin):
 class BoardAdmin(admin.ModelAdmin):
     list_display = ['owner','agressor', 'uuid', 'stage']
 
+@admin.register(Cell)
+class CelldAdmin(admin.ModelAdmin):
+    list_display = ['board', 'figure', 'row', 'col']
+
 @admin.register(User2Figure)
 class BoardAdmin(admin.ModelAdmin):
-    list_display = ['user', 'figure', 'on_board']
+    list_display = ['user', 'figure', 'on_board', 'cellid']
 
-@admin.register(Cell)
-class CellAdmin(admin.ModelAdmin):
-    list_display = ['board', 'figure', 'color']

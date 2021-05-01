@@ -13,6 +13,8 @@ class CellSerializer(serializers.ModelSerializer):
         fields = [    
                     'figure',
                     'color',
+                    'row',
+                    'col',
                     'id'
                     ]
 

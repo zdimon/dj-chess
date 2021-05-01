@@ -30,6 +30,7 @@ class SetFigureView(APIView):
         board = Board.objects.get(uuid=data["uuid"])
         u2f = User2Figure.objects.get(id=data["figure"])
         u2f.on_board = True
+        u2f.cellid = cell.id
         u2f.save()
         cell.figure = u2f
         cell.save()
