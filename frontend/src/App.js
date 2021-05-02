@@ -4,6 +4,7 @@ import Chess from './pages/Chess';
 import Login from './pages/Login';
 import Navbar from './components/Navbar';
 import Invite from './pages/Invite';
+import Games from './pages/Games';
 import { Redirect } from 'react-router'
 
 import {
@@ -42,7 +43,7 @@ function App() {
                   return isAuth ? (
                     <Chess />
                   ) : (
-                    <Login onLogin={doLogin} />
+                    <Login handleLogin={doLogin} onLogin={doLogin} />
                   )
                 }
               } />
@@ -50,6 +51,16 @@ function App() {
                 () => {
                   return isAuth ? (
                     <Chess />
+                  ) : (
+                    <Redirect to="/login"/>
+                  )
+                }
+              } />
+
+              <Route path="/games" render= {
+                () => {
+                  return isAuth ? (
+                    <Games />
                   ) : (
                     <Redirect to="/login"/>
                   )

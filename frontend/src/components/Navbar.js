@@ -65,8 +65,15 @@ function Navbar(props) {
                 variant="contained" 
                 color="primary" 
                 component={Link} 
+                to={'/games'} >
+                    Games
+                </Button>
+                <Button 
+                variant="contained" 
+                color="primary" 
+                component={Link} 
                 to={'/chess'} >
-                    Chess
+                    Play
                 </Button>
                 <Button 
                 variant="contained" 

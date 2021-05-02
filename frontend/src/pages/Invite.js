@@ -16,6 +16,9 @@ function Invite(props) {
 
   useEffect(() => { 
     localStorage.setItem('board',props.match.params.id);
+    if(localStorage.getItem('username')){
+      setIsAuth(true);
+    }
   }, [])
 
   const [email, setEmail] = useState('');
