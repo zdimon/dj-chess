@@ -8,3 +8,4 @@ from .hit_rook import *
 from .hit_queen import *
 from .hit_knite import *
 from .hit_king import *
+from .load_classic_board import *

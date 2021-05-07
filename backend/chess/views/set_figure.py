@@ -38,3 +38,4 @@ class SetFigureView(APIView):
         control_stage.delay(board.uuid)
         return Response({"status": 0, "payload": BoardSerializer(board).data})
 
+

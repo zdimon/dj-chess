@@ -7,3 +7,4 @@ from .index import index
 from .set_figure import *
 from .move_figure import *
 from .games import *
+from .load_classic_board import *

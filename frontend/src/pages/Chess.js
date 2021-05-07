@@ -132,6 +132,14 @@ function Chess() {
     setOpenSnack(false);
   }
 
+  const loadClassicChess = () => {
+    var r = new Request();
+    r.get(`chess/load/classic/board/${localStorage.getItem('board')}`) 
+    .then((payload) => {
+      console.log(payload);
+   })    
+  }
+
   const handleMove = (id) => {
     console.log('Moving!!!!');
     console.log(activeCell);
@@ -162,6 +170,15 @@ function Chess() {
             </p>
             <p>
               Stage: {stage}
+            </p>
+            <p>
+            <Button 
+              variant="contained" 
+              color="primary" 
+              onClick={loadClassicChess}
+              >
+                Classic chess.
+              </Button>
             </p>
            </Grid>
            <Grid item xs={8}>
