@@ -37,6 +37,8 @@ def control_stage(board_id):
     board = Board.objects.get(pk=board_id)
     if User2Figure.objects.filter(board=board,on_board=False).count() == 0:
         board.stage = 'play'
+        board.owner_position_done = True
+        board.agressor_position_done = True
         board.save()
         for room in board.agressor.get_sids():
             print(room)

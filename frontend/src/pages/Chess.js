@@ -137,6 +137,7 @@ function Chess() {
     r.get(`chess/load/classic/board/${localStorage.getItem('board')}`) 
     .then((payload) => {
       console.log(payload);
+      getFigures();
    })    
   }
 
@@ -171,15 +172,21 @@ function Chess() {
             <p>
               Stage: {stage}
             </p>
-            <p>
-            <Button 
-              variant="contained" 
-              color="primary" 
-              onClick={loadClassicChess}
-              >
-                Classic chess.
-              </Button>
-            </p>
+            {
+              stage ==='setting'?
+              <p>
+              <Button 
+                variant="contained" 
+                color="primary" 
+                onClick={loadClassicChess}
+                >
+                  Classic chess.
+                </Button>
+              </p>
+              :
+              ''
+            }
+
            </Grid>
            <Grid item xs={8}>
             <Board 

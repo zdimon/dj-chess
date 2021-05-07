@@ -94,6 +94,9 @@ class Board(models.Model):
     agressor = models.ForeignKey(UserProfile,on_delete=models.SET_NULL, null=True, blank=True, related_name='agressor')
     stage = models.CharField(max_length=90, choices=STAGE,
                   default="setting")
+
+    owner_position_done = models.BooleanField(default=False)
+    agressor_position_done = models.BooleanField(default=False)
     def __str__(self):
         return str(self.uuid)
 

@@ -5,6 +5,7 @@ from .cell_serializer import CellSerializer
 
 class BoardSerializer(serializers.ModelSerializer):
     cells = serializers.SerializerMethodField()
+    position_done = serializers.SerializerMethodField()
 
     def __init__(self, *args, **kwargs):
         try:
@@ -12,6 +13,15 @@ class BoardSerializer(serializers.ModelSerializer):
         except:
             pass
         super().__init__(*args, **kwargs)
+
+    def get_position_done(self, obj=None):
+        try:
+            if self.user == obj.owner:
+                return obj.owner_position_done
+            if self.user == obj.agressor:
+                return obj.agressor_position_done
+        except:
+            return 'False'
 
     def get_cells(self, obj=None):
         cells = []
@@ -33,7 +43,8 @@ class BoardSerializer(serializers.ModelSerializer):
                     'agressor',
                     'uuid',
                     'cells',
-                    'stage'
+                    'stage',
+                    'position_done'
                     ]
 
 
